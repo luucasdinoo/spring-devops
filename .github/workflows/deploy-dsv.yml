@@ -34,6 +34,7 @@ jobs:
   CD:
     needs: CI
     runs-on: ubuntu-latest
+    environment: dsv
     steps:
       - name: Deploy via SSH na EC2
         uses: appleboy/ssh-action@v1
