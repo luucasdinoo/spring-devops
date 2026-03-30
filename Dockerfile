@@ -5,15 +5,18 @@ COPY pom.xml /app
 
 WORKDIR /app
 
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 FROM eclipse-temurin:21-jdk-alpine
 
 WORKDIR /app
 
-COPY --from=builder /app/target/devops-0.0.1-SNAPSHOT.jar /app/app.jar
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+USER appuser
+
+COPY --from=builder /app/target/*.jar /app/app.jar
 
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
