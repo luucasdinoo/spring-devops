@@ -1,7 +1,7 @@
 name: Deploy DSV
 
 on:
-  pull_request:
+  push:
     branches: [develop]
   workflow_dispatch:
 
