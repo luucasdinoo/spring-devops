@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
+  ECR_REGISTRY: ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
@@ -34,6 +34,7 @@ jobs:
   CD:
     needs: CI
     runs-on: ubuntu-latest
+    environment: dsv
     steps:
       - name: Deploy via SSH na EC2
         uses: appleboy/ssh-action@v1
